@@ -1,70 +1,17 @@
-# Getting Started with Create React App
+# CV Project | The Odin Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the repo for the CV project in the javascript course of The Odin Project.
 
-## Available Scripts
+## Things I Learned
 
-In the project directory, you can run:
+### More Practice With React
 
-### `npm start`
+### Some Clarity Using Props And State
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Binding `this`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+In previous teachings of React, I never really understood why it was important to bind `this`.  When I did freeCodeCamp and got exposed to React for the first time, there really wasn't much of an explanation as to why `this` needed to be binded.  I think back and am unsure how I even made it past the challenges at all.  In my few instances working with React afterwards, there really wasn't an emphasis of binding `this` if at all.  I guess I didn't need it.
 
-### `npm test`
+In the lesson before this project, there was a brief section talking about binding `this` in the context of React.  It turns out it actually isn't a problem with React which I, like most people, initially assumed.  I'm still a little fuzzy, but if I undertood the [article in reference](https://www.freecodecamp.org/news/this-is-why-we-need-to-bind-event-handlers-in-class-components-in-react-f7ea1a6f93eb/) correctly it's a matter of context.  In the case of class components in React, 'this' is tied to its default binding of the window, or global, context.  When methods or variables get invoked or referenced, the component doesn't know to stay in its context and looks at the top context level.  If these methods or variables are explicitly bound to `this`, the component will correctly reference its own object context.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I think I understood binding `this` more effectively while working on the project.  I encountered errors from React that would say it was unable to reference from `undefined`.  I must have learned something because I was quick to figure out that I was missing some bindings to variables and methods.
