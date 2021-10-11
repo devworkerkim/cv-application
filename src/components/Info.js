@@ -1,50 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class Info extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleEdit = this.handleEdit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.state = {name: '', email: '', phone: '', edit: false};
+function Info() {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [edit, setEdit] = useState(false);
+
+    const handleEdit = () => {
+        setEdit(!edit);
     }
 
-    handleEdit() {
-        this.setState({edit: !this.state.edit});
+    const handleChange = (event, inputField) => {
+        if (inputField === 'name') setName(event.target.value);
+        if (inputField === 'email') setEmail(event.target.value);
+        if (inputField === 'phone') setPhone(event.target.value);
     }
-    handleChange(event, inputField) {
-        if (inputField === 'name') this.setState({name: event.target.value});
-        if (inputField === 'email') this.setState({email: event.target.value});
-        if (inputField === 'phone') this.setState({phone: event.target.value});
-    } 
 
-    render () {
-        let infoButton;
-        let info;
-        if (this.state.edit) {
-            info = <div>
-                    <label>Name: <input type='text' value={this.state.name} onChange={(event) => this.handleChange(event, 'name')} /></label>
-                    <label>Email: <input type='email' value={this.state.email} onChange={(event) => this.handleChange(event, 'email')} /></label>
-                    <label>Phone: <input type='tel' value={this.state.phone} onChange={(event) => this.handleChange(event, 'phone')} /></label>
-                </div>
-            infoButton = <button onClick={() => this.handleEdit()}>Save</button>
-        }
-        else {
-            info = <div>
-                <p>Name: {this.state.name}</p>
-                <p>Email: {this.state.email}</p>
-                <p>Phone: {this.state.phone}</p>
+    let infoButton;
+    let info;
+    if (edit) {
+        info = <div>
+                <label>Name: <input type='text' value={name} onChange={(event) => handleChange(event, 'name')} /></label>
+                <label>Email: <input type='email' value={email} onChange={(event) => handleChange(event, 'email')} /></label>
+                <label>Phone: <input type='tel' value={phone} onChange={(event) => handleChange(event, 'phone')} /></label>
             </div>
-            infoButton = <button onClick={() => this.handleEdit()}>Edit</button>
-        }
-        
-        return (
-            <div className='Info'>
-                <h2>Info</h2>
-                {infoButton}
-                {info}
-            </div>
-        )
+        infoButton = <button onClick={() => handleEdit()}>Save</button>
     }
+    else {
+        info = <div>
+            <p>Name: {name}</p>
+            <p>Email: {email}</p>
+            <p>Phone: {phone}</p>
+        </div>
+        infoButton = <button onClick={() => handleEdit()}>Edit</button>
+    }
+    
+    return (
+        <div className='Info'>
+            <h2>Info</h2>
+            {infoButton}
+            {info}
+        </div>
+    )    
 }
 
 export default Info;
