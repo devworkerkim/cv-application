@@ -1,12 +1,12 @@
-# CV Project | The Odin Project
+# CV Application | The Odin Project
 
-This is the repo for the CV project in the javascript course of The Odin Project.
+This is the repo for the CV Application project in the javascript course of The Odin Project.
 
 ## Things I Learned
 
-### More Practice With React
+### Working With Classes In React
 
-### Some Clarity Using Props And State
+I generally like to work with functions, and the examples in the documentation using function components made a whole lot of sense to me.  But in order to take advantage of lifecycle methods the components need to be written in classes.  This changed, of course, when React Hooks was released, but I haven't reached that part of the curriculum yet.  I could have written function components, but I decided to take it upon myself to get comfortable writing in classes.  Using constructors for props and state is still a bit confusing to me, but I found the more I was coding it out the more comfortable I felt.
 
 ### Binding `this`
 

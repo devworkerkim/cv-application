@@ -1,122 +1,96 @@
-import React from "react";
+import React from 'react';
 
 class Experience extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {data: []};
+        this.handleEdit = this.handleEdit.bind(this);
         this.addJob = this.addJob.bind(this);
-        this.editJob = this.editJob.bind(this);
-        this.changeCompany = this.changeCompany.bind(this);
-        this.changeTitle = this.changeTitle.bind(this);
-        this.changeTasks = this.changeTasks.bind(this);
-        this.changeStarted = this.changeStarted.bind(this);
-        this.changeEnded = this.changeEnded.bind(this);
-        this.saveJob = this.saveJob.bind(this);
         this.deleteJob = this.deleteJob.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {data: [], edit: false};
+    }
+
+    handleEdit() {
+        this.setState({edit: !this.state.edit});
     }
 
     addJob() {
-        let experienceData = this.state.data;
-        experienceData.push({
-            company: document.querySelector('#company').value,
-            title: document.querySelector('#title').value,
-            tasks: document.querySelector('#tasks').value,
-            started: document.querySelector('#started').value,
-            ended: document.querySelector('#ended').value,
+        const data = this.state.data;
+        data.push({
+            company: document.querySelector('#add_company').value,
+            title: document.querySelector('#add_title').value,
+            tasks: document.querySelector('#add_tasks').value,
+            started: document.querySelector('#add_started').value,
+            ended: document.querySelector('#add_ended').value,
             edit: false
         });
-        this.setState({data: experienceData});
-        document.querySelector('#company').value = '';
-        document.querySelector('#title').value = '';
-        document.querySelector('#tasks').value = '';
-        document.querySelector('#started').value = '';
-        document.querySelector('#ended').value = '';
+        this.setState({data: data});
+        document.querySelector('#add_company').value = '';
+        document.querySelector('#add_title').value = '';
+        document.querySelector('#add_tasks').value = '';
+        document.querySelector('#add_started').value = '';
+        document.querySelector('#add_ended').value = '';
     }
 
-    editJob(event) {
-        let experienceData = this.state.data;
-        experienceData[parseInt(event.target.parentElement.id.slice(3))].edit = true;
-        this.setState({data: experienceData});
+    deleteJob(ind) {
+        const data = this.state.data;
+        data.splice(ind, 1);
+        this.setState({data: data});
     }
 
-    changeCompany(event) {
-        let experienceData = this.state.data;
-        experienceData[parseInt(event.target.parentElement.parentElement.id.slice(3))].company = event.target.value;
-        this.setState({data: experienceData});
-    }
-    changeTitle(event) {
-        let experienceData = this.state.data;
-        experienceData[parseInt(event.target.parentElement.parentElement.id.slice(3))].title = event.target.value;
-        this.setState({data: experienceData});
-    }
-    changeTasks(event) {
-        let experienceData = this.state.data;
-        experienceData[parseInt(event.target.parentElement.parentElement.id.slice(3))].tasks = event.target.value;
-        this.setState({data: experienceData});
-    }
-    changeStarted(event) {
-        let experienceData = this.state.data;
-        experienceData[parseInt(event.target.parentElement.parentElement.id.slice(3))].started = event.target.value;
-        this.setState({data: experienceData});
-    }
-    changeEnded(event) {
-        let experienceData = this.state.data;
-        experienceData[parseInt(event.target.parentElement.parentElement.id.slice(3))].ended = event.target.value;
-        this.setState({data: experienceData});
-    }
-
-    saveJob(event) {
-        let experienceData = this.state.data;
-        experienceData[parseInt(event.target.parentElement.id.slice(3))].edit = false;
-        this.setState({data: experienceData});
-    }
-
-    deleteJob(event) {
-        let experienceData = this.state.data;
-        experienceData.splice(parseInt(event.target.parentElement.id.slice(3)), 1);
-        this.setState({data: experienceData});
+    handleChange(event, ind, inputField) {
+        const data = this.state.data;
+        if (inputField === 'company') data[ind].company = event.target.value;
+        if (inputField === 'title') data[ind].title = event.target.value;
+        if (inputField === 'tasks') data[ind].tasks = event.target.value;
+        if (inputField === 'started') data[ind].started = event.target.value;
+        if (inputField === 'ended') data[ind].ended = event.target.value;
+        this.setState({data: data});
     }
 
     render() {
-        let experienceData = this.state.data;
-        experienceData = this.state.data.map((job, ind) => {
-            if (job.edit) {
-                return <li key={ind} id={'job' + ind}>
-                    <label>Company: <input type="text" value={job.company} onChange={this.changeCompany} /></label>
-                    <label>Position Title: <input type="text" value={job.title} onChange={this.changeTitle} /></label>
-                    <label>Main Tasks: <textarea value={job.tasks} onChange={this.changeTasks} /></label>
-                    <label>Date Started: <input type="date" value={job.started} onChange={this.changeStarted} /></label>
-                    <label>Date Ended: <input type="date" value={job.ended} onChange={this.changeEnded} /></label>
-                    <button onClick={this.saveJob}>Save</button>
-                    <button onClick={this.deleteJob}>Delete</button>
+        let button;
+        let jobList;
+        let addJob;
+        if (this.state.edit) {
+            button = <button onClick={this.handleEdit}>Save</button>
+            jobList = this.state.data.map((item, ind) => 
+                <li key={ind}>
+                    <label>Company: <input type='text' value={item.company} onChange={(event) => this.handleChange(event, ind, 'company')} /></label>
+                    <label>Position Title: <input type='text' value={item.title} onChange={(event) => this.handleChange(event, ind, 'title')} /></label>
+                    <label>Main Tasks: <textarea value={item.tasks} onChange={(event) => this.handleChange(event, ind, 'tasks')} /></label>
+                    <label>Date Started: <input type='date' value={item.started} onChange={(event) => this.handleChange(event, ind, 'started')} /></label>
+                    <label>Date Started: <input type='date' value={item.ended} onChange={(event) => this.handleChange(event, ind, 'ended')} /></label>
+                    <button onClick={() => this.deleteJob(ind)}>Delete</button>
                 </li>
-            }
-            else {
-                return <li key={ind} id={'job' + ind}>
-                    <p>Company: {job.company}</p>
-                    <p>Position Title: {job.title}</p>
-                    <p>Main Tasks: {job.tasks}</p>
-                    <p>Date Started: {job.started}</p>
-                    <p>Date Ended: {job.ended}</p>
-                    <button onClick={this.editJob}>Edit</button>
-                    <button onClick={this.deleteJob}>Delete</button>
+            )
+            addJob = <div>
+                    <label>Company: <input type='text' id='add_company' /></label>
+                    <label>Position Title: <input type='text' id='add_title' /></label>
+                    <label>Main Tasks: <textarea id='add_tasks' /></label>
+                    <label>Date Started: <input type='date' id='add_started' /></label>
+                    <label>Date Started: <input type='date' id='add_ended' /></label>
+                    <button onClick={() => this.addJob()}>Add</button>
+                </div>;
+        } else {
+            button = <button onClick={this.handleEdit}>Edit</button>
+            jobList = this.state.data.map((item, ind) => 
+                <li key={ind}>
+                    <p>{item.company}</p>
+                    <p>{item.title}</p>
+                    <p>{item.tasks}</p>
+                    <p>{item.started}</p>
+                    <p>{item.ended}</p>
                 </li>
-            }
-        });
+            );
+            addJob = null;
+        }
         return (
-            <div className="Experience">
+            <div className='Experience'>
                 <h2>Job Experience</h2>
-                <ul>
-                    {experienceData}
-                </ul>
-                <div>
-                    <label>Company: <input type="text" id="company" /></label>
-                    <label>Position Title: <input type="text" id="title" /></label>
-                    <label>Main Tasks: <textarea id="tasks" /></label>
-                    <label>Date Started: <input type="date" id="started" /></label>
-                    <label>Date Ended: <input type="date" id="ended" /></label>
-                    <button onClick={this.addJob}>Add</button>
-                </div>
+                {button}
+                <ul>{jobList}</ul>
+                {addJob}
             </div>
         )
     }

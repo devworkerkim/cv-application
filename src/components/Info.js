@@ -1,43 +1,32 @@
-import React from "react"
+import React from 'react';
 
 class Info extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {name: 'John Doe', email: "john@johndoe.com", phone: "(555) 555-3434", edit: false};
-        this.changeName = this.changeName.bind(this);
-        this.changeEmail = this.changeEmail.bind(this);
-        this.changePhone = this.changePhone.bind(this);
-        this.editInfo = this.editInfo.bind(this);
-        this.saveInfo = this.saveInfo.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {name: '', email: '', phone: '', edit: false};
     }
 
-    changeName (event) {
-        this.setState({name: event.target.value})
+    handleEdit() {
+        this.setState({edit: !this.state.edit});
     }
-    changeEmail (event) {
-        this.setState({email: event.target.value})
-    }
-    changePhone (event) {
-        this.setState({phone: event.target.value})
-    }
-
-    editInfo () {
-    this.setState({edit: true});
-    }
-    saveInfo () {
-    this.setState({edit: false});
-    }
+    handleChange(event, inputField) {
+        if (inputField === 'name') this.setState({name: event.target.value});
+        if (inputField === 'email') this.setState({email: event.target.value});
+        if (inputField === 'phone') this.setState({phone: event.target.value});
+    } 
 
     render () {
         let infoButton;
         let info;
         if (this.state.edit) {
             info = <div>
-                    <label>Name: <input type="text" value={this.state.name} onChange={this.changeName} id="name" /></label>
-                    <label>Email: <input type="email" value={this.state.email} onChange={this.changeEmail} id="email" /></label>
-                    <label>Phone: <input type="tel" value={this.state.phone} onChange={this.changePhone} id="phone" /></label>
+                    <label>Name: <input type='text' value={this.state.name} onChange={(event) => this.handleChange(event, 'name')} /></label>
+                    <label>Email: <input type='email' value={this.state.email} onChange={(event) => this.handleChange(event, 'email')} /></label>
+                    <label>Phone: <input type='tel' value={this.state.phone} onChange={(event) => this.handleChange(event, 'phone')} /></label>
                 </div>
-            infoButton = <button onClick={this.saveInfo}>Save</button>
+            infoButton = <button onClick={() => this.handleEdit()}>Save</button>
         }
         else {
             info = <div>
@@ -45,14 +34,14 @@ class Info extends React.Component {
                 <p>Email: {this.state.email}</p>
                 <p>Phone: {this.state.phone}</p>
             </div>
-            infoButton = <button onClick={this.editInfo}>Edit</button>
+            infoButton = <button onClick={() => this.handleEdit()}>Edit</button>
         }
         
         return (
-            <div className="Info">
+            <div className='Info'>
                 <h2>Info</h2>
-                {info}
                 {infoButton}
+                {info}
             </div>
         )
     }
