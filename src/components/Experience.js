@@ -22,7 +22,6 @@ class Experience extends React.Component {
             tasks: document.querySelector('#add_tasks').value,
             started: document.querySelector('#add_started').value,
             ended: document.querySelector('#add_ended').value,
-            edit: false
         });
         this.setState({data: data});
         document.querySelector('#add_company').value = '';
